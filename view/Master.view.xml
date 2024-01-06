@@ -1,0 +1,45 @@
+<mvc:View controllerName="eve.ui.Z_MMASRAF03.controller.Master" xmlns="sap.m" xmlns:semantic="sap.m.semantic" xmlns:mvc="sap.ui.core.mvc">
+	<semantic:MasterPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+		<!--<semantic:titleHeading>-->
+		<!--	<Title id="masterPageTitle" text="{masterView>/title}" level="H2"/>-->
+		<!--</semantic:titleHeading>-->
+		<semantic:content>
+			<!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
+			<List id="list" width="auto" class="sapFDynamicPageAlignContent"
+				items="{ path: '/MasterApproveSet', sorter: { path: 'Requestid', descending: false }, groupHeaderFactory: '.createGroupHeader' }"
+				busyIndicatorDelay="{masterView>/delay}" noDataText="{masterView>/noDataText}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true" growingScrollToLoad="true"
+				updateFinished=".onUpdateFinished" selectionChange=".onSelectionChange">
+				<headerToolbar>
+					<OverflowToolbar>
+						<SearchField id="searchField" showRefreshButton="true" tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData minWidth="150px" maxWidth="240px" shrinkable="true" priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<ToolbarSpacer/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<!--<items>-->
+				<!--	<ObjectListItem type="Navigation" press=".onSelectionChange" title="{Bukrs}"-->
+				<!--		number="{ path: 'Bukrs', type: 'sap.ui.model.odata.type.Decimal', constraints: {scale: '2'} }" numberUnit="{Waers}">-->
+				<!--		<firstStatus>-->
+				<!--			<ObjectStatus text="{ path: 'Statu', formatter: '.formatter.statu1Format' }" state="{ path: 'Statu', formatter: '.formatter.statuFormat' }"/>-->
+				<!--		</firstStatus>-->
+				<!--		<ObjectAttribute text="{path:'Datum', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' , UTC: true }}"/>-->
+				<!--	</ObjectListItem>-->
+				<!--</items>-->
+					<items>
+					<ObjectListItem type="Navigation" press=".onSelectionChange" title="{Bukrs}/{Masrafyeri}"
+						number="{ path: 'Toplam', type: 'sap.ui.model.odata.type.Decimal', constraints: {scale: '2'} }" numberUnit="TRY">
+						<firstStatus>
+							<ObjectStatus text="{ path: 'Statu', formatter: '.formatter.statu1Format' }" state="{ path: 'Statu', formatter: '.formatter.statuFormat' }"/>
+							<!--<ObjectStatus text="{Statu}"/>-->
+						</firstStatus>
+						<ObjectAttribute text="{path:'Datum', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' , UTC: true }}"/>
+					</ObjectListItem>
+				</items>
+			</List>
+		</semantic:content>
+	</semantic:MasterPage>
+</mvc:View>

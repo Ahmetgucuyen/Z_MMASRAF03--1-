@@ -1,0 +1,130 @@
+<mvc:View controllerName="eve.ui.Z_MMASRAF03.controller.Detail" xmlns="sap.m" xmlns:semantic="sap.m.semantic"
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<semantic:DetailPage 	title="Masraflar" id="detailPage" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}" showFooter="true">
+		<!--<semantic:titleHeading>-->
+		<!--	<Title text="{Bukrs} {Masrafyeri}" level="H2"/>-->
+		<!--</semantic:titleHeading>-->
+		<!--<semantic:headerContent>-->
+		<!--	<VBox>-->
+		<!--		<HBox>-->
+		<!--			<ObjectAttribute title="Toplam Tutar"/>-->
+		<!--			<ObjectNumber id="objectHeaderNumber" number="{ path: 'Toplam', type: 'sap.ui.model.odata.type.Decimal', constraints: {scale: '2'} }"-->
+		<!--				unit="TRY" class="sapUiTinyMarginBegin"/>-->
+		<!--		</HBox>-->
+		<!--		<Text id="statuText" text="{Statu}" visible="false"></Text>-->
+		<!--	</VBox>-->
+		<!--</semantic:headerContent>-->
+			<semantic:subHeader>
+			<Bar id="headerBar">
+				<contentMiddle>
+					<!--<SearchField id="searchField" showRefreshButton="{= !${device>/support/touch} }" tooltip="{i18n>masterSearchTooltip}" width="100%"-->
+					<!--	search="onSearch"></SearchField>-->
+						<Title text="{Bukrs}/{Masrafyeri}" level="H2"/>
+				</contentMiddle>
+					<contentLeft>
+					<VBox>
+				<HBox>
+					<ObjectAttribute title="{i18n>ToplamTutar}"/>
+					<ObjectNumber id="objectHeaderNumber" number="{ path: 'Toplam', type: 'sap.ui.model.odata.type.Decimal', constraints: {scale: '2'} }"
+						unit="TRY" class="sapUiTinyMarginBegin"/>
+					<ObjectAttribute id="idStatuAttr" title="{Statu}" visible="false"/>
+				</HBox>
+			</VBox>
+				</contentLeft>
+					<contentRight>
+						<Title text="{Requestid}" level="H2"/>
+				</contentRight>
+			</Bar>
+		</semantic:subHeader>
+		<semantic:content>
+			<Table id="lineItemsList" selectionChange="onSelectionChange1" width="auto" items="{docDetailModel>/tableData}" mode="MultiSelect"
+				noDataText="{i18n>notFoundText}">
+				<headerToolbar>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<!--<Button text="{i18n>SatirEkle}" press="onPressAddSatir"/>-->
+						<Button id="idbuton" text="Onaya Gönder" visible="true" icon="sap-icon://paper-plane" press="onPressOnayla"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<!--<Column>-->
+					<!--	<Text text="Kayıt No"/>-->
+					<!--</Column>-->
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="Giren Kullanıcı"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="Giriş Tarihi"/>
+					</Column>
+					<!--<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">-->
+					<!--	<Text text="Şirket Kodu"/>-->
+					<!--</Column>-->
+					<!--<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">-->
+					<!--	<Text text="Belge Tarihi"/>-->
+					<!--</Column>-->
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="Masraf Yeri"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="Masraf Çeşidi"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="{i18n>tutar}"/>
+						<footer>
+							<Text text="{ path: 'Toplam', type: 'sap.ui.model.odata.type.Decimal', constraints: {scale: '2'} }"/>
+						</footer>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="Cari Kodu"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="Cari Adı"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" popinDisplay="Inline">
+						<Text text="{i18n>durum}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" popinDisplay="Inline">
+						<Text text="{i18n>Doküman}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<!--<Text text="{docDetailModel>Kayitno}" wrapping="false"/>-->
+							<Text text="{docDetailModel>Uname}" wrapping="false"/>
+							<Text text="{path:'docDetailModel>Datum', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' , UTC: true }}"
+								wrapping="false"/>
+							<!--<Text text="{docDetailModel>Bukrs}"/>-->
+							<Text text="{docDetailModel>Masrafyeri}" wrapping="false"/>
+							<Text text="{docDetailModel>Masrafcesidi}"/>
+							<ObjectNumber number="{ path: 'docDetailModel>Tutar', type: 'sap.ui.model.odata.type.Decimal', constraints: {scale: '2'} }" unit="{Waers}"/>
+							<Text text="{docDetailModel>Carikodu}" wrapping="false"/>
+							<Text text="{docDetailModel>Cariadi}" wrapping="false"/>
+							<ObjectStatus text="{ path: 'docDetailModel>Statu', formatter: '.formatter.statuText' }"
+								state="{ path: 'docDetailModel>Statu', formatter: '.formatter.statuFormat' }"/>
+							<core:Icon src="sap-icon://documents" press="onPressDosya"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<!--<semantic:closeAction>-->
+		<!--	<semantic:CloseAction id="closeColumn" press=".onCloseDetailPress"/>-->
+		<!--</semantic:closeAction>-->
+		<semantic:positiveAction>
+			<semantic:PositiveAction id="onaylaButton" text="Onayla" app:dec="accept" press="onTamamla" visible="true"/>
+		</semantic:positiveAction>
+		<semantic:negativeAction>
+			<semantic:NegativeAction id="reddetButton" text="Reddet" app:dec="decline" press="onReddetFragOpen" visible="true"/>
+		</semantic:negativeAction>
+		<!--<semantic:fullScreenAction>-->
+		<!--	<semantic:FullScreenAction id="enterFullScreen"-->
+		<!--		visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>-->
+		<!--</semantic:fullScreenAction>-->
+		<!--<semantic:exitFullScreenAction>-->
+		<!--	<semantic:ExitFullScreenAction id="exitFullScreen"-->
+		<!--		visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>-->
+		<!--</semantic:exitFullScreenAction>-->
+	</semantic:DetailPage>
+</mvc:View>

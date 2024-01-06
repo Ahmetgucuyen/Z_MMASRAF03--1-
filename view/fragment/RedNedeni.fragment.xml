@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>RedNedeni}" state="Error" icon="sap-icon://comment">
+		<TextArea value="{detailView>/RedNedeni}" rows="5" enabled="true" width="20rem" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom"/>
+		<beginButton/>
+		<buttons>
+			<Button text="{i18n>REJECT}" type="Accept" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
+				press="onTamamlaRed"/>
+			<Button text="{i18n>CLOSE}" type="Reject" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
+				press="onRedNedeniFragClose"/>
+		</buttons>
+		<customHeader/>
+		<endButton/>
+	</Dialog>
+</core:FragmentDefinition>
